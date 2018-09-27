@@ -71,8 +71,11 @@
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\Sword.cs" />
     <Compile Include="Assets\Scripts\Shaper.cs" />
+    <Compile Include="Assets\Scripts\Systems\EventsSystem.cs" />
     <Compile Include="Assets\Scripts\Systems\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Systems\MainMenuManager.cs" />
     <Compile Include="Assets\Scripts\Systems\ObjectPool.cs" />
+    <Compile Include="Assets\Scripts\Systems\ScoreSystem.cs" />
     <Compile Include="Assets\Scripts\Systems\SwipeArea.cs" />
     <Compile Include="Assets\Scripts\Systems\TabArea.cs" />
     <Compile Include="Assets\TouchScript\Examples\_misc\Scripts\Checker.cs" />

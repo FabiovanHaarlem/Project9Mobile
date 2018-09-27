@@ -10,15 +10,20 @@ public class FallingObjects : MonoBehaviour
 
     public void Initialize()
     {
-        m_Speed = 3f;
+        m_Speed = 5f;
         this.gameObject.SetActive(false);
     }
 
-    public void Activate(Vector2 position, Vector2 direction)
+    public virtual void Activate(Vector2 position, Vector2 direction)
     {
         transform.position = position;
         m_Direction = direction;
         this.gameObject.SetActive(true);
+
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle + 90f, Vector3.forward);
+        
     }
 
     private void Update()
@@ -36,13 +41,13 @@ public class FallingObjects : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    public virtual void Collision()
+    public virtual void Collision(GameObject hitObject)
     {
         Disable();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Collision();
+        Collision(collision.gameObject);
     }
 }

@@ -7,12 +7,14 @@ public class ObjectPool : MonoBehaviour
     private List<Fireball> m_FireBalls;
     private List<Princess> m_Princess;
     private List<Sword> m_Swords;
+    private List<GameObject> m_BrokenScales;
 
     private void Awake()
     {
         m_FireBalls = new List<Fireball>();
         m_Princess = new List<Princess>();
         m_Swords = new List<Sword>();
+        m_BrokenScales = new List<GameObject>();
 
         for (int i = 0; i < 6; i++)
         {
@@ -36,6 +38,13 @@ public class ObjectPool : MonoBehaviour
             Sword swordScript = sword.GetComponent<Sword>();
             swordScript.Initialize();
             m_Swords.Add(swordScript);
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            GameObject scale = Instantiate(Resources.Load("Prefabs/BrokenScale") as GameObject);
+            scale.SetActive(false);
+            m_BrokenScales.Add(scale);
         }
     }
 
@@ -87,4 +96,20 @@ public class ObjectPool : MonoBehaviour
         return sword;
     }
 
+
+    public GameObject GetScale()
+    {
+        GameObject scale = m_BrokenScales[0];
+
+        for (int i = 0; i < m_BrokenScales.Count; i++)
+        {
+            if (!m_BrokenScales[i].gameObject.activeInHierarchy)
+            {
+                scale = m_BrokenScales[i];
+                break;
+            }
+        }
+
+        return scale;
+    }
 }

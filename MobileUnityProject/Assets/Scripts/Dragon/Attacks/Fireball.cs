@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Fireball : FallingObjects
 {
-    public override void Collision()
+    public override void Collision(GameObject hitObject)
     {
-        base.Collision();
+        base.Collision(hitObject);
     }
 }

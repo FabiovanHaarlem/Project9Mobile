@@ -7,7 +7,11 @@ using TouchScript.Gestures;
 public class TabArea : MonoBehaviour
 {
     [SerializeField]
-    private UnityEvent m_TabEvent;
+    private UnityEvent m_MoveRightEvent;
+    [SerializeField]
+    private UnityEvent m_MoveLeftEvent;
+    [SerializeField]
+    private GameObject m_Player;
 
     private PressGesture m_Pressed;
     private ReleaseGesture m_Released;
@@ -30,7 +34,16 @@ public class TabArea : MonoBehaviour
     {
         if (m_HoldPress)
         {
-            Tab();
+            if (m_Player.transform.position.x < Camera.main.ScreenToWorldPoint(Input.mousePosition).x)
+            {
+                MovePlayerRight();
+            }
+
+            if (m_Player.transform.position.x > Camera.main.ScreenToWorldPoint(Input.mousePosition).x)
+            {
+                MovePlayerLeft();
+            }
+            //Tab();
         }
     }
 
@@ -49,16 +62,18 @@ public class TabArea : MonoBehaviour
         m_HoldPress = false;
     }
 
-    //private void OnMouseOver()
-    //{
-    //    if (Input.GetMouseButton(0))
-    //    {
-    //        Tab();
-    //    }
-    //}
-
-    private void Tab()
+    private void MovePlayerLeft()
     {
-        m_TabEvent.Invoke();
+        m_MoveLeftEvent.Invoke();
     }
+
+    private void MovePlayerRight()
+    {
+        m_MoveRightEvent.Invoke();
+    }
+
+    //private void Tab()
+    //{
+    //    m_TabEvent.Invoke();
+    //}
 }

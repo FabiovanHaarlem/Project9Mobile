@@ -4,23 +4,33 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    public ObjectPool m_ObjectPool;
     public static GameManager m_Instance;
 
-    
+    public ScoreSystem GetScoreSystem { get; private set; }
+    public ObjectPool GetObjectPool { get; private set; }
+
+    [SerializeField]
+    private RectTransform m_UI;
+    [SerializeField]
+    private RectTransform m_UIPosition;
+    [SerializeField]
+    private RectTransform m_UIStartPosition;
 
     private void Awake()
     {
+        m_UI.transform.position = m_UIStartPosition.position;
         m_Instance = this;
-        //m_ObjectPool.GetComponent<ObjectPool>();
+        GetObjectPool = GetComponent<ObjectPool>();
+        GetScoreSystem = GetComponent<ScoreSystem>();
     }
-
-    //public ObjectPool GetObjectPool
-    //{ get { return m_ObjectPool; } }
 
     private void Update()
     {
+        if (Vector2.Distance(m_UI.transform.position, m_UIPosition.transform.position) > 0.001f)
+        {
+            m_UI.position = Vector2.MoveTowards(m_UI.transform.position, m_UIPosition.transform.position, 0.99f);
+        }
+
         if (Input.GetKey(KeyCode.Escape))
         {
             Application.Quit();
