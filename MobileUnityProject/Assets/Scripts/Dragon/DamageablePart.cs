@@ -15,6 +15,7 @@ public class DamageablePart : MonoBehaviour
     private BodyPart m_BodyPart;
 
     private float m_NonDamageableTimer;
+    private float m_SwitchSpriteTimer;
 
     private bool m_Damageable;
 
@@ -25,6 +26,7 @@ public class DamageablePart : MonoBehaviour
         m_NonDamageableSprite = nonDamageableSprite;
         m_DamageableLayer = 16;
         m_NonDamageableLayer = 17;
+        m_SwitchSpriteTimer = 0.1f;
         m_Damageable = false;
         this.gameObject.layer = m_NonDamageableLayer;
         m_BodyPart = bodyPart;
@@ -39,6 +41,24 @@ public class DamageablePart : MonoBehaviour
         else if (m_NonDamageableTimer < 0f)
         {
             MakeNonDamageable();
+        }
+
+        if (m_Damageable)
+        {
+            m_SwitchSpriteTimer -= Time.deltaTime;
+            if (m_SwitchSpriteTimer <= 0)
+            {
+                if (m_SpriteRenderer.sprite == m_NonDamageableSprite)
+                {
+                    m_SpriteRenderer.sprite = m_DamageableSprite;
+                }
+                else
+                {
+                    m_SpriteRenderer.sprite = m_NonDamageableSprite;
+                }
+
+                m_SwitchSpriteTimer = 0.1f;
+            }
         }
     }
 
@@ -72,7 +92,6 @@ public class DamageablePart : MonoBehaviour
         scale.transform.rotation = transform.rotation;
         scale.SetActive(true);
         scale.GetComponent<Rigidbody2D>().AddForce(transform.position - sword.transform.position * 200);
-        //gameObject.SetActive(false);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

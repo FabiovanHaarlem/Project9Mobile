@@ -26,7 +26,7 @@ public class FallingObjects : MonoBehaviour
         
     }
 
-    private void Update()
+    public virtual void Update()
     {
         Move();
     }

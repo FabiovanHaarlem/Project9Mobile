@@ -20,6 +20,8 @@ public class Dragon : MonoBehaviour
     private Transform m_DragonPosition;
     [SerializeField]
     private Transform m_DragonStartPosition;
+    [SerializeField]
+    private AudioSource m_BodySwitchSound;
 
     private int m_ActiveBodyPart;
 
@@ -30,16 +32,16 @@ public class Dragon : MonoBehaviour
         transform.position = m_DragonStartPosition.position;
         InitializeDragon();
         m_ActiveBodyPart = 2;
-        m_BodyParts[m_ActiveBodyPart].Initialize(m_DamageableSprite, m_NonDamageableSprite, true);
-    }
+        m_BodyParts[m_ActiveBodyPart].Initialize(m_DamageableSprite, m_NonDamageableSprite, true, this);
 
+    }
 
     private void InitializeDragon()
     {
         m_DragonHead.Initialize();
         for (int i = 0; i < m_BodyParts.Count - 1; i++)
         {
-            m_BodyParts[i].Initialize(m_DamageableSprite, m_NonDamageableSprite, false);
+            m_BodyParts[i].Initialize(m_DamageableSprite, m_NonDamageableSprite, false, this);
         }
         m_MakeDamageablePartTimer = Random.Range(3f, 6f);
     }
@@ -48,7 +50,7 @@ public class Dragon : MonoBehaviour
     {
         if (Vector2.Distance(transform.position, m_DragonPosition.position) > 0.001f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, m_DragonPosition.position, 0.03f);
+            transform.position = Vector2.MoveTowards(transform.position, m_DragonPosition.position, 0.08f);
         }
         else
         {
@@ -61,7 +63,7 @@ public class Dragon : MonoBehaviour
             if (m_BodyParts[m_ActiveBodyPart].GetIfPartDamageable())
             {
                 m_BodyParts[m_ActiveBodyPart].MakePartDamageable();
-                m_MakeDamageablePartTimer = Random.Range(3f, 6f);
+                m_MakeDamageablePartTimer = Random.Range(1.5f, 2.5f);
             }
             else
             {
@@ -71,7 +73,7 @@ public class Dragon : MonoBehaviour
                 }
                 else
                 {
-                    m_ActiveBodyPart -= 1;  
+                    m_ActiveBodyPart -= 1;
                 }
                 m_BodyParts[m_ActiveBodyPart].MakeActiveBodyPart();
                 ChangeDragonPartsPosition();
@@ -81,21 +83,25 @@ public class Dragon : MonoBehaviour
 
     private void ChangeDragonPartsPosition()
     {
+        if (!StaticDataContainer.m_MuteSound)
+        {
+            m_BodySwitchSound.Play();
+        }
         switch(m_ActiveBodyPart)
         {
             case 0:
                 m_BodyParts[0].ChangeParentPosition(m_DragonPartsPositions[2], -6, -5);
-                m_BodyParts[1].ChangeParentPosition(m_DragonPartsPositions[0], -10, -9);
+                m_BodyParts[1].ChangeParentPosition(m_DragonPartsPositions[0], -12, -11);
                 m_BodyParts[2].ChangeParentPosition(m_DragonPartsPositions[1], -8, -7);
                 break;
             case 1:
-                m_BodyParts[0].ChangeParentPosition(m_DragonPartsPositions[1], -8, -7);
+                m_BodyParts[0].ChangeParentPosition(m_DragonPartsPositions[1], -10, -9);
                 m_BodyParts[1].ChangeParentPosition(m_DragonPartsPositions[2], -6, -5);
-                m_BodyParts[2].ChangeParentPosition(m_DragonPartsPositions[0], -10, -9);
+                m_BodyParts[2].ChangeParentPosition(m_DragonPartsPositions[0], -12, -11);
                 break;
             case 2:
-                m_BodyParts[0].ChangeParentPosition(m_DragonPartsPositions[0], -10, -9);
-                m_BodyParts[1].ChangeParentPosition(m_DragonPartsPositions[1], -8, -7);
+                m_BodyParts[0].ChangeParentPosition(m_DragonPartsPositions[0], -12, -11);
+                m_BodyParts[1].ChangeParentPosition(m_DragonPartsPositions[1], -10, -9);
                 m_BodyParts[2].ChangeParentPosition(m_DragonPartsPositions[2], -6, -5);
                 break;
         }

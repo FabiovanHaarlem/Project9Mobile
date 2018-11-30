@@ -17,6 +17,10 @@ public class BodyPart : MonoBehaviour
     private GameObject m_ParentObject;
     private SpriteRenderer m_SpriteRenderer;
 
+    private Dragon m_Dragon;
+
+    private AudioSource m_ScaleHitAudio;
+
     [SerializeField]
     private int m_ScalesLeft;
     private int m_Direction;
@@ -25,12 +29,14 @@ public class BodyPart : MonoBehaviour
     private bool m_MoveLeft;
     private bool m_PartStillDamageable;
 
-    public void Initialize(Sprite damageableSprite, Sprite nonDamageableSprite, bool isDamageable)
+    public void Initialize(Sprite damageableSprite, Sprite nonDamageableSprite, bool isDamageable, Dragon dragon)
     {
-        m_ScalesLeft = m_DamageableParts.Count;
+        m_ScalesLeft = 10;
+        m_Dragon = dragon;
         m_PartStillDamageable = isDamageable;
         m_CurrentParentPosition = m_ParentObject.transform;
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        m_ScaleHitAudio = GetComponent<AudioSource>();
         for (int i = 0; i < m_DamageableParts.Count; i++)
         {
             m_DamageableParts[i].Initialize(damageableSprite, nonDamageableSprite, this);
@@ -83,7 +89,7 @@ public class BodyPart : MonoBehaviour
     public void MakeActiveBodyPart()
     {
         m_PartStillDamageable = true;
-        m_ScalesLeft = m_DamageableParts.Count;
+        m_ScalesLeft = 10;
     }
 
     public bool GetIfPartDamageable()
@@ -93,9 +99,14 @@ public class BodyPart : MonoBehaviour
 
     public void PartHit()
     {
+        if (!StaticDataContainer.m_MuteSound)
+        {
+            m_ScaleHitAudio.Play();
+        }
         m_ScalesLeft -= 1;
         if (m_ScalesLeft == 0)
         {
+            GameManager.m_Instance.GetScoreSystem.MakeScaleNewColor();
             m_PartStillDamageable = false;
         }
     }
@@ -123,7 +134,5 @@ public class BodyPart : MonoBehaviour
                 m_MoveLeft = !m_MoveLeft;
             }
         }
-
-
     }
 }

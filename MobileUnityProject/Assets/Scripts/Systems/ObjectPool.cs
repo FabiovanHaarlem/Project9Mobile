@@ -16,7 +16,7 @@ public class ObjectPool : MonoBehaviour
         m_Swords = new List<Sword>();
         m_BrokenScales = new List<GameObject>();
 
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 20; i++)
         {
             GameObject fireBall = Instantiate(Resources.Load("Prefabs/FireBall") as GameObject);
             Fireball fireBallScript = fireBall.GetComponent<Fireball>();
@@ -82,7 +82,7 @@ public class ObjectPool : MonoBehaviour
 
     public Sword GetSword()
     {
-        Sword sword = m_Swords[0];
+        Sword sword = null;
 
         for (int i = 0; i < m_Swords.Count; i++)
         {

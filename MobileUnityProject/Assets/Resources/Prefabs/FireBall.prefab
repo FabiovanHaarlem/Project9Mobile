@@ -23,9 +23,10 @@ GameObject:
   - component: {fileID: 114349461639753566}
   - component: {fileID: 50346574942341014}
   - component: {fileID: 61628795692291312}
+  - component: {fileID: 95364242241750938}
   m_Layer: 10
   m_Name: FireBall
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,8 +38,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1473080621073104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8989135, y: -3.3604205, z: 0.1054596}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalPosition: {x: -10.44, y: -2.3665519, z: 0.1054596}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -75,19 +76,37 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.12026709, y: -0.34076142}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.5, y: 4.76}
+    oldSize: {x: 2.42, y: 3.94}
     newSize: {x: 1.97, y: 1.97}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.97, y: 1.97}
+  m_Size: {x: 1.6492845, y: 2.6515226}
   m_EdgeRadius: 0
+--- !u!95 &95364242241750938
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1473080621073104}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b9e03d171cdca2c4b98b0a17ce6436ba, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114349461639753566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0366e2a53262f4c85ee2140ae3bd0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ChristmassSprite: {fileID: 21300000, guid: 28eb3be453be9ba419e5c73bd15a62a4, type: 3}
 --- !u!212 &212220849753930848
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -133,8 +153,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 010df5ac8a8e5e546888daa70137cbbe, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 17a21cba26140304aba2e4cdb4b7f99f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -2,27 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using TouchScript.Gestures;
 
 public class SwipeArea : MonoBehaviour
 {
     [SerializeField]
-    private UnityEvent m_FlickEvent;
+    private UnityEvent m_SwordThrowEvent;
 
-    private FlickGesture m_Flick;
+    [SerializeField]
+    private GameObject m_Player;
 
-    private void Awake()
+    private void OnMouseDown()
     {
-        m_Flick = GetComponent<FlickGesture>();
+        PressSwordThrow();
     }
 
-    private void Start()
+    private void PressSwordThrow()
     {
-        m_Flick.Flicked += Flick;
-    }
-
-    private void Flick(object sender, System.EventArgs e)
-    {
-        m_FlickEvent.Invoke();
+        if (m_Player.transform.position.y + 1f < Camera.main.ScreenToWorldPoint(Input.mousePosition).y)
+        {
+            m_SwordThrowEvent.Invoke();
+        }
     }
 }
